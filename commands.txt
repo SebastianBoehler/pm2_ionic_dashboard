@@ -1,0 +1,13 @@
+ionic start
+
+ionic capacitor add ios
+
+npm run build
+
+npx cap sync
+
+npx cap run ios
+
+//live reload
+ionic capacitor run ios -l --external
+

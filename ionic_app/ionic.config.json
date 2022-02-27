@@ -1,0 +1,7 @@
+{
+  "name": "pm2 dashboard",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
