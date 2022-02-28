@@ -102,6 +102,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on("disconnect", (data) => {
+    connections--
     console.log('user disconnected')
   })
 })
