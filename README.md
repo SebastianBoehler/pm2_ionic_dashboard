@@ -1,6 +1,5 @@
 # pm2_ionic_dashboard
-This is a cross platform app developed on the ionic framework for cross-platform distribution 
-to monitor all your instances running on PM2 using the official PM2 Node API.
+This is a cross platform app developed on the ionic framework to monitor all your instances running on PM2 using the official PM2 Node API.
 
 Metrics are in realtime using a websocket connection to send data and remote action commands.
 
