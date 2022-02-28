@@ -35,8 +35,9 @@ const Home: React.FC<Props> = ({ router }) => {
 
   if (router) alert('no router')
 
-  function triggerModal(idx: any) {
-    setLogs(data[idx]['log'])
+  function triggerModal(name: string) {
+    let obj = data.find(item => item['name'] === name)
+    setLogs(obj['log'])
     setShowModal(true)
   }
 
@@ -108,7 +109,7 @@ const Home: React.FC<Props> = ({ router }) => {
                 </IonRow>
                 <IonRow className={styles.btnRow}>
                   <IonCol>
-                    <IonButton expand={"full"} id="modalTrigger" onClick={() => triggerModal(index)}>View Logs</IonButton>
+                    <IonButton expand={"full"} id="modalTrigger" onClick={() => triggerModal(name)}>View Logs</IonButton>
                   </IonCol>
                   <IonCol>
                     <IonButton color={"danger"} expand={"full"} onClick={() => restartInstance(name)}>Restart</IonButton>
