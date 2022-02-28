@@ -9,10 +9,15 @@
 .modalContent {
     margin: 20px;
     padding: 20px;
+    white-space: pre-wrap;
 }
 
 .hr {
     background-color: grey;
+}
+
+ion-toast {
+    text-align: center;
 }
 
 ion-text {

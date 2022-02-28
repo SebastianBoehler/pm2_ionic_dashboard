@@ -11,25 +11,27 @@ const io = require('socket.io')(socket, {
 });
 
 //pm2 connect and then pm2 desribe process 0
+pm2.connect((err) => {
+  if (err) console.error(err)
+  else console.log('pm2 connected')
+})
+
+let connections = 0
 
 io.on('connection', (socket) => {
   console.log('a user connected', socket['id'])
+  connections++
   //socket.emit('connected', 'connected')
 
   socket.on('data', async () => {
-    console.log('requested data')
+    console.log('requested data', connections)
     let data = await new Promise((resolve, reject) => {
-      pm2.connect(function (err) {
-        if (err) {
-          console.error(err);
-          reject(err)
-        } else pm2.list(function (err2, list) {
-          if (err2) {
-            //console.error(err2);
-            reject(err2)
-          }
-          resolve(list)
-        });
+      pm2.list(function (err2, list) {
+        if (err2) {
+          //console.error(err2);
+          reject(err2)
+        }
+        resolve(list)
       });
     })
 
@@ -82,13 +84,25 @@ io.on('connection', (socket) => {
       }
     })
 
-    console.log(data)
+    //console.log(data)
 
     socket.emit('data', data)
   });
 
+  socket.on('restart', async (name) => {
+    console.log('restart instance', name)
+    if (!name) return //todo return error to app
+    pm2.restart(name, (err, proc) => {
+      if (err) console.error(err)
+      else {
+        console.log(proc)
+        socket.emit('restarted', name)
+      }
+    })
+  })
+
   socket.on("disconnect", (data) => {
-    //console.log(socket['id'], ' disconnected...')
+    console.log('user disconnected')
   })
 })
 
