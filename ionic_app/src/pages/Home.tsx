@@ -1,5 +1,5 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCardContent, useIonViewWillEnter, IonIcon, IonGrid, IonCol, IonRow, IonButton, IonText, IonChip, IonLabel, IonItemDivider, IonModal, IonBackdrop, IonButtons, IonBackButton, useIonToast, useIonViewWillLeave, IonSkeletonText, IonSearchbar } from '@ionic/react';
-import { useState, useEffect } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCardContent, useIonViewWillEnter, IonIcon, IonGrid, IonCol, IonRow, IonButton, IonLabel, IonModal, useIonToast, IonSkeletonText, IonSearchbar } from '@ionic/react';
+import { useState } from 'react';
 import io from 'socket.io-client';
 import styles from "./home.module.scss";
 //import ionic icons
@@ -13,7 +13,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ router }) => {
   const [searchText, setSearchText] = useState('');
-  const [present, dismiss] = useIonToast();
+  const [present] = useIonToast();
   const [data, setData] = useState<any []>([]);
   const [logs, setLogs] = useState(String);
   const [showModal, setShowModal] = useState(false);
@@ -67,7 +67,7 @@ const Home: React.FC<Props> = ({ router }) => {
           <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)} autoCapitalize={'off'}/>
         </IonHeader>
         {data.length > 0 ? data.filter(item => item['name'].includes(searchText)).map((item, index) => {
-          let restarts = item['restart_time']
+          
           let name = item['name']
           let uptime = +Number((new Date().getTime() - +item['uptime']) / 1000 / 60 / 60).toFixed(1)
           return <IonCard class="welcome-card">
